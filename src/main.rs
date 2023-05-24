@@ -5,7 +5,9 @@ fn main() {
     println!("Serving on http://localhost:3000...");
     server
         .bind("127.0.0.1:3000")
-        .expect("error binding server to adress");
+        .expect("error binding server to adress")
+        .run()
+        .expect("error running server");
 }
 
 fn get_index() -> HttpResponse {
