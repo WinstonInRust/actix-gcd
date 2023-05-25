@@ -14,9 +14,9 @@ fn main() {
             .route("/gcd", web::post().to(post_gcd))
     });
 
-    println!("Serving on http://localhost:2000...");
+    println!("Serving on http://localhost:2200...");
     server
-        .bind("127.0.0.1:2000")
+        .bind("127.0.0.1:2200")
         .expect("error binding server to adress")
         .run()
         .expect("error running server");
@@ -51,4 +51,17 @@ fn post_gcd(form: web::Form<GcdParameters>) -> HttpResponse {
     );
 
     HttpResponse::Ok().content_type("text/html").body(response)
+}
+
+fn gcd(mut n: u64, mut m: u64) -> u64 {
+    assert!(n != 0 && m != 0);
+    while m != 0 {
+        if m < n {
+            let t = m;
+            m = n;
+            n = t;
+        }
+        m = m % n;
+    }
+    n
 }
